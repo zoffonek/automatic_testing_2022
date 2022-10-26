@@ -7,5 +7,5 @@ class Konto:
         self.kod_rabatowy = kod_rabatowy  # fearute_3
 
         # bonus za kod rabatowy
-        if (self.kod_rabatowy != None):
+        if (self.kod_rabatowy != None) and (self.pesel[0:2] > "60") and (self.pesel[4] < "8"):
             self.saldo += 50
