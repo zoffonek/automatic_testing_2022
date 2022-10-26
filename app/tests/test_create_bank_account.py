@@ -1,3 +1,4 @@
+import string
 import unittest
 
 from ..Konto import Konto
@@ -16,6 +17,8 @@ class TestCreateBankAccount(unittest.TestCase):
                          "Nazwisko nie zostało zapisane!")
         self.assertEqual(pierwsze_konto.saldo, 0, "Saldo nie jest zerowe!")
         self.assertEqual(pierwsze_konto.pesel, pesel,
-                         "Brak peselu")  # feature 2
+                         "Brak numeru pesel!")  # feature 2
+        self.assertEqual(len(str(pierwsze_konto.pesel)) == 11,
+                         True, "Niepoprawny pesel!")
 
     # tutaj proszę dodawać nowe testy
