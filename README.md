@@ -1,3 +1,3 @@
 # Zofia Piesik
 
-Grupa 1
+Grupa 3
