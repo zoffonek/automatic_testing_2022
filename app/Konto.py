@@ -1,11 +1,67 @@
-class Konto:
+import re
+
+
+class Konto(object):
     def __init__(self, imie, nazwisko, pesel, kod_rabatowy=None):
         self.imie = imie
         self.nazwisko = nazwisko
         self.saldo = 0
-        self.pesel = pesel  # feature_2
-        self.kod_rabatowy = kod_rabatowy  # fearute_3
+        self.pesel = pesel if len(pesel) == 11 and isinstance(
+            pesel, str) else "Niepoprawny pesel!"
+
+        self.kod_rabatowy = kod_rabatowy
 
         # bonus za kod rabatowy
-        if (self.kod_rabatowy != None) and (self.pesel[0:2] > "60") and (self.pesel[4] < "8"):
-            self.saldo += 50
+        def zrealizuj_kod():
+            if kod_rabatowy != None:
+                codePat = re.compile(r'^PROM_([a-zA-Z0-9]){3}$')
+                codeCorrect = True if re.match(
+                    codePat, kod_rabatowy) else False
+
+                codeRules = (((int(self.pesel[0:2]) in range(61, 100)) and (int(self.pesel[2]) in [0, 1]))
+                             or ((int(self.pesel[0:2]) in range(2, 100)) and (int(self.pesel[2]) in range(2, 7))))
+                if codeCorrect and codeRules:
+                    self.saldo += 50
+                else:
+                    self.kod_rabatowy = "Błędny kod rabatowy!"
+
+        zrealizuj_kod()
+
+    # przelewy
+
+    def przelew_wychodzacy(self, kwota):
+        if kwota > self.saldo:
+            return "Nie zaksiegowano przelewu wychodzącego!"
+        else:
+            self.saldo -= kwota
+
+    def przelew_przychodzacy(self, kwota):
+        self.saldo += kwota
+
+    def przelew_ekspresowy(self, kwota):
+        if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
+            return "Nie udany przelew ekspresowy normalny!"
+
+        else:
+            self.saldo -= 1
+
+
+class KontoFirmowe(Konto):
+
+    def __init__(self, nazwa_firmy, nip):
+        self.nazwa_firmy = nazwa_firmy
+        self.nip = nip if len(nip) == 10 else "Niepoprawny NIP!"
+        self.saldo = 0
+
+    def przelew_przychodzacy(self, kwota):
+        return super().przelew_przychodzacy(kwota)
+
+    def przelew_wychodzacy(self, kwota):
+        return super().przelew_wychodzacy(kwota)
+
+    def przelew_ekspresowy(self, kwota):
+        if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
+            return "Nie udany przelew ekspresowy firmowy!"
+
+        else:
+            self.saldo -= 5
