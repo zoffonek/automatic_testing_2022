@@ -40,7 +40,7 @@ class Konto(object):
 
     def przelew_ekspresowy(self, kwota):
         if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
-            return "Nie udany przelew ekspresowy normalny!"
+            return "Nie udany przelew ekspresowy!"
 
         else:
             self.saldo -= 1
@@ -61,7 +61,7 @@ class KontoFirmowe(Konto):
 
     def przelew_ekspresowy(self, kwota):
         if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
-            return "Nie udany przelew ekspresowy firmowy!"
+            return "Nie udany przelew ekspresowy!"
 
         else:
             self.saldo -= 5
