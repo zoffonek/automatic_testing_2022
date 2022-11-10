@@ -22,7 +22,7 @@ class TestKsiegowaniePrzelwow(unittest.TestCase):
         konto.saldo = 600
         konto.przelew_ekspresowy(1000)
         self.assertEqual(konto.przelew_ekspresowy(
-            1000), "Nie udany przelew ekspresowy normalny!")
+            1000), "Nie udany przelew ekspresowy!")
 
     def test_udany_przelew_ekspresowy_firmowy(self):
         kwota = 600
@@ -35,4 +35,4 @@ class TestKsiegowaniePrzelwow(unittest.TestCase):
         konto = KontoFirmowe(self.nazwa_firmy, self.nip)
         konto.saldo = 600
         self.assertEqual(konto.przelew_ekspresowy(
-            5000), "Nie udany przelew ekspresowy firmowy!")
+            5000), "Nie udany przelew ekspresowy!")
