@@ -10,6 +10,8 @@ class Konto(object):
             pesel, str) else "Niepoprawny pesel!"
 
         self.kod_rabatowy = kod_rabatowy
+        self.oplata_ekspres = 1
+        self.historia = []
 
         # bonus za kod rabatowy
         def zrealizuj_kod():
@@ -34,16 +36,19 @@ class Konto(object):
             return "Nie zaksiegowano przelewu wychodzącego!"
         else:
             self.saldo -= kwota
+            self.historia.append(-kwota)
 
     def przelew_przychodzacy(self, kwota):
         self.saldo += kwota
+        self.historia.append(kwota)
 
     def przelew_ekspresowy(self, kwota):
         if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
             return "Nie udany przelew ekspresowy!"
 
         else:
-            self.saldo -= 1
+            self.saldo -= self.oplata_ekspres
+            self.historia.append(-self.oplata_ekspres)
 
 
 class KontoFirmowe(Konto):
@@ -52,6 +57,8 @@ class KontoFirmowe(Konto):
         self.nazwa_firmy = nazwa_firmy
         self.nip = nip if len(nip) == 10 else "Niepoprawny NIP!"
         self.saldo = 0
+        self.historia = []
+        self.oplata_ekspres = 5
 
     def przelew_przychodzacy(self, kwota):
         return super().przelew_przychodzacy(kwota)
@@ -60,8 +67,4 @@ class KontoFirmowe(Konto):
         return super().przelew_wychodzacy(kwota)
 
     def przelew_ekspresowy(self, kwota):
-        if self.przelew_wychodzacy(kwota) == "Nie zaksiegowano przelewu wychodzącego!":
-            return "Nie udany przelew ekspresowy!"
-
-        else:
-            self.saldo -= 5
+        return super().przelew_ekspresowy(kwota)
