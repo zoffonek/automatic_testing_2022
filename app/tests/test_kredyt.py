@@ -1,6 +1,6 @@
 import unittest
 
-from Konto import Konto, KontoFirmowe
+from ..Konto import Konto
 
 class TestKredytu(unittest.TestCase):
     imie = "Arnold"
@@ -12,21 +12,24 @@ class TestKredytu(unittest.TestCase):
         konto=Konto(self.imie,self.nazwisko,self.pesel)
         konto.historia = [100,-100,100,100,100]
         kwota_kredytu = 500
-        self.assertTrue(konto.zaciagnij_kredyt(kwota_kredytu))
+        czy_przyznany = konto.zaciagnij_kredyt(kwota_kredytu)
+        self.assertTrue(czy_przyznany)
         self.assertEqual(konto.saldo, kwota_kredytu)
 
     def test_nieprzyznany_kredyt_warunek1_1(self):
         konto=Konto(self.imie,self.nazwisko,self.pesel)
         konto.historia = [100,100, -100]
         kwota_kredytu = 500
-        self.assertFalse(konto.zaciagnij_kredyt(kwota_kredytu))
+        czy_przyznany = konto.zaciagnij_kredyt(kwota_kredytu)
+        self.assertFalse(czy_przyznany)
         self.assertEqual(konto.saldo, 0)
 
     def test_nieprzyznany_kredyt_warunek1_2(self):
         konto=Konto(self.imie,self.nazwisko,self.pesel)
         konto.historia = [100]
         kwota_kredytu = 500
-        self.assertFalse(konto.zaciagnij_kredyt(kwota_kredytu))
+        czy_przyznany = konto.zaciagnij_kredyt(kwota_kredytu)
+        self.assertFalse(czy_przyznany)
         self.assertEqual(konto.saldo, 0)
 
     
@@ -36,16 +39,16 @@ class TestKredytu(unittest.TestCase):
         konto=Konto(self.imie,self.nazwisko,self.pesel)
         konto.historia = [-100,100,-100,100,100]
         kwota_kredytu = 200
-        konto.zaciagnij_kredyt(kwota_kredytu)
-        self.assertTrue(konto.zaciagnij_kredyt)
+        czy_przyznany = konto.zaciagnij_kredyt(kwota_kredytu)
+        self.assertTrue(czy_przyznany)
         self.assertEqual(konto.saldo, kwota_kredytu)
 
     def test_nieprzyznany_kredyt_warunek2(self):
         konto=Konto(self.imie,self.nazwisko,self.pesel)
         konto.historia = [-100,100,-100,100,100]
         kwota_kredytu = 500
-        konto.zaciagnij_kredyt(kwota_kredytu)
-        self.assertFalse(konto.zaciagnij_kredyt)
+        czy_przyznany = konto.zaciagnij_kredyt(kwota_kredytu)
+        self.assertFalse(czy_przyznany)
         self.assertEqual(konto.saldo, 0)
 
 

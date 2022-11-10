@@ -59,10 +59,10 @@ class Konto(object):
             self.saldo += kwota
             return True
 
-        if sum(self.historia[-5:]) > kwota: 
+        if len(self.historia) >= 5 and sum(self.historia[-5:]) > kwota: 
             self.saldo += kwota
             return True
-        else return False
+        return False
 
 class KontoFirmowe(Konto):
 
