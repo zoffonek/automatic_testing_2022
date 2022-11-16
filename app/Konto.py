@@ -50,6 +50,20 @@ class Konto(object):
             self.saldo -= self.oplata_ekspres
             self.historia.append(-self.oplata_ekspres)
 
+    # kredyt
+
+    def zaciagnij_kredyt(self, kwota):
+        if len(self.historia) < 3:
+            return False
+        if self.historia[-1] > 0 and self.historia[-2] > 0 and self.historia[-3] > 0:
+            self.saldo += kwota
+            return True
+
+        if len(self.historia) >= 5 and sum(self.historia[-5:]) > kwota:
+            self.saldo += kwota
+            return True
+        return False
+
 
 class KontoFirmowe(Konto):
 
