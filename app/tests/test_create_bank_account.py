@@ -32,8 +32,7 @@ class TestCreateBankAccount(unittest.TestCase):
 
     # realizacja kodu rabatowego
     def test_niepoprawny_kod_rabatowy(self):
-        kod_rabatowy = "ccc"
-        konto = Konto(self.imie, self.nazwisko, self.pesel, kod_rabatowy)
+        konto = Konto(self.imie, self.nazwisko, self.pesel, "ccc")
         self.assertEqual(
             konto.kod_rabatowy, "Błędny kod rabatowy!")
         self.assertEqual(konto.saldo, 0, "Saldo nie jest zerowe!")
