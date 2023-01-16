@@ -1,0 +1,17 @@
+python -m unittest
+
+# coverage
+python -m coverage run -m unittest
+python -m coverage report
+
+# api
+flask --app app/api.py --debug run
+
+# api testy
+export FLASK_APP=app/api.py
+python -m flask run
+
+python -m unittest app/api_tests/test_api_rejestr_kont.py
+
+
+
