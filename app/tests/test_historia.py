@@ -1,6 +1,7 @@
 import unittest
 
-from ..Konto import Konto, KontoFirmowe
+from ..Konto import Konto
+from ..KontoFirmowe import KontoFirmowe
 
 
 class TestHistoria(unittest.TestCase):
