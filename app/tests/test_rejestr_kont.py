@@ -34,16 +34,3 @@ class TestRejestrKont(unittest.TestCase):
     def test_znajdywanie_peselu(self):
         self.assertEqual(RejestrKont.znajdz_konto(
             self.pesel).pesel, self.pesel)
-    
-
-<<<<<<< HEAD
-    # def test_znajdywanie_peselu(self):
-    #     self.tearDownClass()
-    #     self.assertEqual(RejestrKont.znajdz_konto(
-    #         self.pesel), "Account doesn't exist!")
-=======
-    def test_znajdywanie_peselu(self):
-        self.tearDownClass()
-        self.assertEqual(RejestrKont.znajdz_konto(
-            self.pesel), "Account doesn't exist!")
->>>>>>> f96e029ca241c1a34873c715e108125a62856480

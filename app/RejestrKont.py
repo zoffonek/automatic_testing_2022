@@ -19,4 +19,3 @@ class RejestrKont(object):
     @classmethod
     def ile_kont(cls):
         return len(cls.lista_kont)
-                
