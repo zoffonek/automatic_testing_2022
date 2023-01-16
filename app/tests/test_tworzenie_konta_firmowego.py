@@ -1,6 +1,7 @@
 import unittest
 
-from ..Konto import *
+from ..Konto import Konto
+from ..KontoFirmowe import KontoFirmowe
 
 
 class TestTworzenieKontaFiromwego(unittest.TestCase):

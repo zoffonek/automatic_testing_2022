@@ -1,7 +1,7 @@
 import unittest
 from parameterized import parameterized, parameterized_class
 
-from ..Konto import Konto, KontoFirmowe
+from ..Konto import Konto
 
 
 class TestKredytuNormalnego(unittest.TestCase):
