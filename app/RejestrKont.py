@@ -19,3 +19,9 @@ class RejestrKont(object):
     @classmethod
     def ile_kont(cls):
         return len(cls.lista_kont)
+    
+    @classmethod
+    def usun_konto(cls, pesel):
+        for konto in cls.lista_kont:
+            if konto.pesel==pesel:
+                cls.lista_kont.remove(konto)
