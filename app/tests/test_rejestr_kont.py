@@ -18,19 +18,30 @@ class TestRejestrKont(unittest.TestCase):
         konto = Konto(cls.imie, cls.nazwisko, cls.pesel)
         RejestrKont.dodaj_konto(konto)
 
-    def test_dodawanie_konta_1(self):
+    def test_1_dodawanie_konta(self):
         konto = Konto(self.imie, self.nazwisko, '98120545612')
         RejestrKont.dodaj_konto(konto)
         print(RejestrKont.lista_kont)
         self.assertEqual(RejestrKont.ile_kont(), 2)
 
-    def test_dodawanie_konta_2(self):
+    def test_2_dodawanie_konta(self):
         konto = Konto(self.imie, self.nazwisko, '99120545612')
         RejestrKont.dodaj_konto(konto)
         print(RejestrKont.lista_kont)
         self.assertEqual(RejestrKont.ile_kont(), 3)
 
 
-    def test_znajdywanie_peselu(self):
+    def test_3_znajdywanie_peselu(self):
         self.assertEqual(RejestrKont.znajdz_konto(
             self.pesel).pesel, self.pesel)
+
+    def test_4_usuwanie_konta(self):
+        self.assertEqual(RejestrKont.znajdz_konto(
+            self.pesel).pesel, self.pesel)
+        RejestrKont.usun_konto(
+            self.pesel)
+        self.assertEqual(RejestrKont.znajdz_konto(
+            self.pesel), None)
+
+    
+    
