@@ -13,13 +13,24 @@ class TestRejestrKontAPI(unittest.TestCase):
         "imie": "Anna"
     }
     
+    body2 = {
+        "imie": "Laura",
+        "nazwisko": "Palmer",
+        "pesel": "99101155984"
+    }
+    
     url = "http://localhost:5000"
     
 
     
-    def test_1_tworzenie_konta(self):
+    def test_1a_tworzenie_konta(self):
         utworz_konto_res = requests.post(self.url + "/konta/stworz_konto", json = self.body)
         self.assertEqual(utworz_konto_res.status_code, 201)
+  
+    def test_1b_tworzenie_konta_istniejacy_pesel(self):
+        utworz_drugie_konto_res = requests.post(self.url + "/konta/stworz_konto", json = self.body2)
+        self.assertEqual(utworz_drugie_konto_res.status_code, 400)      
+    
     
     def test_2_wyszukanie_stworzonego_konta(self):
         znajdz_konto_res = requests.get(self.url + "/konta/konto/" + self.body['pesel'])
@@ -35,7 +46,6 @@ class TestRejestrKontAPI(unittest.TestCase):
         znalezione_konto = znajdz_konto_res.json()
         aktualizuj_konto_res = requests.put(self.url + "/konta/konto/" + self.body['pesel'], json = self.body_update)
         oczekiwane_dane = {**znalezione_konto, **self.body_update}
-        print(oczekiwane_dane)
         self.assertEqual(aktualizuj_konto_res.status_code, 200)
         zaktualizowane_konto_res = requests.get(self.url + "/konta/konto/" + oczekiwane_dane["pesel"])
         self.assertEqual(zaktualizowane_konto_res.status_code, 200)
