@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from parameterized import parameterized, parameterized_class
 
 from ..KontoFirmowe import KontoFirmowe
@@ -7,8 +8,9 @@ from ..KontoFirmowe import KontoFirmowe
 class TestKredytFirmowy(unittest.TestCase):
     nazwa_firmy = "Bamboleo sp. z o.o."
     nip = "1234567890"
-
-    def setUp(self):
+    
+    @patch('app.KontoFirmowe.KontoFirmowe.walidacja_nip_api', return_value=True)
+    def setUp(self, mock):
         self.konto = KontoFirmowe(self.nazwa_firmy, self.nip)
 
     @parameterized.expand([

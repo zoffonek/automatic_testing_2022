@@ -1,7 +1,12 @@
+from datetime import date
+import os
+from urllib import request
 from app.Konto import Konto
 
 
 class KontoFirmowe(Konto):
+    
+    url_mf = os.getenv('BANK_APP_MF_URL', 'https://wl-test.mf.gov.pl/')
 
     def __init__(self, nazwa_firmy, nip):
         self.nazwa_firmy = nazwa_firmy
@@ -33,3 +38,16 @@ class KontoFirmowe(Konto):
             self.saldo += kwota
             return True
         return False
+    
+    # _____________________NIP_________________________
+
+    @classmethod
+    def walidacja_nip_api(self, nip):
+        today = str(date.today())
+        endpoint = f"{self.url_mf}api/search/nip/{nip}?date={today}"
+        print(f"Request to {endpoint}")
+        res = request.get(endpoint)
+        print(f"Response {nip}: {res.status_code}, {res.json()}")
+        if res.status_code == 200:
+            return True 
+        self.nip = "Pranie!"
