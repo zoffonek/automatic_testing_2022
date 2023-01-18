@@ -1,5 +1,6 @@
+from datetime import date
 import re
-
+from app.SMTPConnection import SMTPConnection
 
 class Konto(object):
     def __init__(self, imie, nazwisko, pesel, kod_rabatowy=None):
@@ -12,6 +13,8 @@ class Konto(object):
         self.kod_rabatowy = kod_rabatowy
         self.oplata_ekspres = 1
         self.historia = []
+        
+        self.tresc_email="Twoja historia konta to:"
 
         # _____bonus za kod rabatowy _____
 
@@ -73,4 +76,16 @@ class Konto(object):
                  self.suma_5_ostatnich_transakji_wieksza_od_kwoty(kwota)):
             self.saldo += kwota
             return True
+        return False
+
+    # _____________________MAIL_HISTORIA_________________________
+    
+    def wyslij_historie_na_maila(self, adresat, smtp):
+        temat = f"Wyciąg z dnia {str(date.today())}"
+        tresc = f"{self.tresc_email}{self.historia}"
+        print(f"Wysylanie historii na email: {adresat}")
+        if smtp.wyslij(temat, tresc, adresat):
+            print("Wysylanie powiodlo sie")
+            return True
+        print("Wiadomosc niedostarczona")
         return False

@@ -14,6 +14,7 @@ class KontoFirmowe(Konto):
         self.saldo = 0
         self.historia = []
         self.oplata_ekspres = 5
+        self.tresc_email = "Historia konta Twojej firmy to:"
 
     def przelew_przychodzacy(self, kwota):
         return super().przelew_przychodzacy(kwota)
@@ -51,3 +52,6 @@ class KontoFirmowe(Konto):
         if res.status_code == 200:
             return True 
         self.nip = "Pranie!"
+        
+    def  wyslij_historie_na_maila(self, adresat, smtp):
+        return super().wyslij_historie_na_maila(adresat, smtp)
