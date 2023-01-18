@@ -21,13 +21,11 @@ class TestRejestrKont(unittest.TestCase):
     def test_1_dodawanie_konta(self):
         konto = Konto(self.imie, self.nazwisko, '98120545612')
         RejestrKont.dodaj_konto(konto)
-        print(RejestrKont.lista_kont)
         self.assertEqual(RejestrKont.ile_kont(), 2)
 
     def test_2_dodawanie_konta(self):
         konto = Konto(self.imie, self.nazwisko, '99120545612')
         RejestrKont.dodaj_konto(konto)
-        print(RejestrKont.lista_kont)
         self.assertEqual(RejestrKont.ile_kont(), 3)
 
 
